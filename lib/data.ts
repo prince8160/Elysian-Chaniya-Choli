@@ -1,0 +1,95 @@
+export const products = [
+  {
+    id: '1',
+    title: 'Maroon & Gold Designer Chaniya Choli',
+    originalPrice: '₹18,000',
+    salePrice: '₹14,500',
+    discount: '19% off',
+    rating: 4.8,
+    reviewsCount: 124,
+    image: '/images/products/download.jpg',
+    imageHover: '/images/products/download (1).jpg',
+    fabric: 'Pure Silk',
+    details: 'Zardosi & Mirror Work. Premium quality traditional outfit ideal for weddings and festive occasions.',
+    sizes: ['S', 'M', 'L', 'XL'],
+    images: [
+      '/images/products/download.jpg',
+      '/images/products/download (1).jpg',
+      '/images/products/download (2).jpg'
+    ],
+  },
+  {
+    id: '2',
+    title: 'Navy Blue Navratri Chaniya Choli',
+    originalPrice: '₹8,000',
+    salePrice: '₹5,200',
+    discount: '35% off',
+    rating: 4.5,
+    reviewsCount: 89,
+    image: '/images/products/images.jpg',
+    imageHover: '/images/products/images (1).jpg',
+    fabric: 'Cotton Print',
+    details: 'Ahir Embroidery with heavy mirror work, perfect for Navratri garba nights.',
+    sizes: ['XS', 'S', 'M', 'L'],
+    images: [
+      '/images/products/images.jpg',
+      '/images/products/images (1).jpg',
+      '/images/products/images (2).jpg'
+    ],
+  },
+  {
+    id: '3',
+    title: 'Emerald Green Mirror Work Lehenga',
+    originalPrice: '₹15,000',
+    salePrice: '₹12,000',
+    discount: '20% off',
+    rating: 4.9,
+    reviewsCount: 205,
+    image: '/images/products/download (3).jpg',
+    imageHover: '/images/products/download (4).jpg',
+    fabric: 'Georgette',
+    details: 'Elegant mirror work and sequin details, highly recommended for party wear.',
+    sizes: ['M', 'L', 'XL', '2XL'],
+    images: [
+      '/images/products/download (3).jpg',
+      '/images/products/download (4).jpg',
+      '/images/products/download (5).jpg'
+    ],
+  },
+  {
+    id: '4',
+    title: 'Pastel Pink Traditional Choli',
+    originalPrice: '₹12,500',
+    salePrice: '₹9,500',
+    discount: '24% off',
+    rating: 4.6,
+    reviewsCount: 67,
+    image: '/images/products/images (3).jpg',
+    imageHover: '/images/products/images (4).jpg',
+    fabric: 'Organza',
+    details: 'Heavy Gota Patti and pearl embellishments on premium organza fabric.',
+    sizes: ['S', 'M', 'L', 'Custom'],
+    images: [
+      '/images/products/images (3).jpg',
+      '/images/products/images (4).jpg',
+      '/images/products/images (5).jpg'
+    ],
+  },
+  {
+    id: '5',
+    title: 'Yellow Festive Edition Choli',
+    originalPrice: '₹10,000',
+    salePrice: '₹7,800',
+    discount: '22% off',
+    rating: 4.7,
+    reviewsCount: 156,
+    image: '/images/products/xl-2034maroon-aradhna-original-imaherumkgzckuba.webp',
+    imageHover: '/images/products/xl-2034maroon-aradhna-original-imaherumkgzckuba.webp',
+    fabric: 'Banarasi Silk Blend',
+    details: 'Bright yellow festive edition featuring traditional motifs and comfortable fit.',
+    sizes: ['S', 'M', 'L'],
+    images: [
+      '/images/products/xl-2034maroon-aradhna-original-imaherumkgzckuba.webp'
+    ],
+  }
+];
