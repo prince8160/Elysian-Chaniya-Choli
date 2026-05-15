@@ -16,7 +16,7 @@ export function About() {
               <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-6">Authentic Gujarati Elegance</h2>
               
               <p className="text-slate-600 font-light text-base leading-relaxed mb-8">
-                Based in Surat, the textile heart of India, Elysian is a premium fashion boutique dedicated exclusively to preserving and elevating authentic Chaniya Cholis. We blend traditional Gujarati artisanal techniques with premium comfortable fabrics.
+                Based in Deesa, a cultural hub of Gujarat, Elysian is a premium fashion boutique dedicated exclusively to preserving and elevating authentic Chaniya Cholis. We blend traditional Gujarati artisanal techniques with premium comfortable fabrics.
               </p>
 
               <div className="space-y-6">
@@ -45,8 +45,8 @@ export function About() {
                     <Factory className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900">Surat Based Boutique</h4>
-                    <p className="text-sm text-slate-500 font-light mt-1">Directly sourced and meticulously quality-checked at our advanced facility in textile city.</p>
+                    <h4 className="font-semibold text-slate-900">Deesa Based Boutique</h4>
+                    <p className="text-sm text-slate-500 font-light mt-1">Directly sourced and meticulously quality-checked at our advanced facility in Gujarat.</p>
                   </div>
                 </div>
               </div>

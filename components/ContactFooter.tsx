@@ -26,8 +26,9 @@ export function ContactFooter() {
                   <div>
                     <h4 className="font-serif text-lg text-slate-900 mb-1">Visit Us</h4>
                     <p className="text-slate-600 font-light text-sm leading-relaxed">
-                      123 Elysian Way, Textile Market Road,<br/>
-                      Surat, Gujarat 395002, India
+                      SHOP NO 08, Bhoyan Rd,<br/>
+                      near PRITAM NAGAR, opp. APMC MARKET,<br/>
+                      Deesa, Gujarat 385535
                     </p>
                   </div>
                 </div>
@@ -69,7 +70,7 @@ export function ContactFooter() {
             {/* Google Map */}
             <div className="flex-[1.2] bg-stone-200 min-h-[400px] lg:min-h-auto relative grayscale opacity-90 contrast-125 transition-all hover:grayscale-0 hover:opacity-100 duration-500">
                <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119066.41709444315!2d72.74109923831818!3d21.159462705193498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e59411d1563%3A0xfe4558290938b042!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                 src="https://maps.google.com/maps?q=SHOP%20NO%2008,%20Bhoyan%20Rd,%20near%20PRITAM%20NAGAR,%20opp.%20APMC%20MARKET,%20Deesa,%20Gujarat%20385535+(Elysian)&t=&z=17&ie=UTF8&iwloc=B&output=embed" 
                  width="100%" 
                  height="100%" 
                  style={{ border: 0 }} 
