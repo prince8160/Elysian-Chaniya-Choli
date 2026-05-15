@@ -105,7 +105,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {mode === 'forgot_password' && 'Reset Password'}
             </h2>
             <p className="text-xs text-stone-500 max-w-[260px] mx-auto">
-              {mode === 'login' && 'Sign in to access your appointments and orders'}
+              {mode === 'login' && 'Sign in to access your orders' }
               {mode === 'signup' && 'Join us for a personalized styling experience'}
               {mode === 'forgot_password' && 'Enter your email to receive a reset link'}
             </p>

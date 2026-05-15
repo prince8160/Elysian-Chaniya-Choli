@@ -8,60 +8,10 @@ import { db } from '@/lib/firebase';
 import { Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
 
-interface Appointment {
-  id: string;
-  date: string;
-  time: string;
-  purpose: string;
-  status: string;
-  createdAt: any;
-}
-
 export default function ProfilePage() {
   const { user, loading } = useAuth();
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [fetching, setFetching] = useState(true);
 
-  useEffect(() => {
-    async function fetchBookings() {
-      if (!user) return;
-      
-      try {
-        const q = query(
-          collection(db, 'appointments'),
-          where('userId', '==', user.uid)
-        );
-        
-        const querySnapshot = await getDocs(q);
-        const fetched = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as Appointment[];
-        
-        fetched.sort((a, b) => {
-          const dateA = a.createdAt?.toMillis?.() || 0;
-          const dateB = b.createdAt?.toMillis?.() || 0;
-          return dateB - dateA;
-        });
-        
-        setAppointments(fetched);
-      } catch (error) {
-        console.error("Error fetching appointments:", error);
-      } finally {
-        setFetching(false);
-      }
-    }
-
-    if (!loading) {
-      if (user) {
-        fetchBookings();
-      } else {
-        setFetching(false);
-      }
-    }
-  }, [user, loading]);
-
-  if (loading || fetching) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-stone-50 pt-[72px] flex items-center justify-center">
         <div className="text-slate-500">Loading profile...</div>
@@ -104,43 +54,15 @@ export default function ProfilePage() {
 
         <div className="bg-white p-8 shadow-sm rounded-lg border border-stone-200">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-serif text-slate-900 border-b border-stone-200 pb-2 inline-block">Your Appointments</h2>
-            <Link href="/book" className="text-sm font-medium text-maroon-800 hover:underline">
-              Book New
-            </Link>
+            <h2 className="text-xl font-serif text-slate-900 border-b border-stone-200 pb-2 inline-block">Your Orders</h2>
           </div>
           
-          {appointments.length > 0 ? (
-            <div className="space-y-4">
-              {appointments.map(appt => (
-                <div key={appt.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-stone-100 rounded-md bg-stone-50/50">
-                  <div className="mb-4 sm:mb-0">
-                    <p className="font-medium text-slate-800 text-lg">{appt.purpose}</p>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-slate-600">
-                      <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> {appt.date}</span>
-                      <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {appt.time}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <span className={`px-3 py-1 text-xs font-medium uppercase tracking-wider rounded-full ${
-                      appt.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                      appt.status === 'cancelled' ? 'bg-rose-100 text-rose-800' :
-                      'bg-amber-100 text-amber-800'
-                    }`}>
-                      {appt.status}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 text-slate-500">
-              <p>You have no appointments yet.</p>
-              <Link href="/book" className="inline-block mt-4 px-6 py-2 bg-stone-900 text-white rounded hover:bg-stone-800 transition-colors">
-                Book an Appointment
-              </Link>
-            </div>
-          )}
+          <div className="text-center py-12 text-slate-500">
+            <p>You have no recent orders.</p>
+            <Link href="/" className="inline-block mt-4 px-6 py-2 bg-stone-900 text-white rounded hover:bg-stone-800 transition-colors">
+              Continue Shopping
+            </Link>
+          </div>
         </div>
       </main>
     </div>

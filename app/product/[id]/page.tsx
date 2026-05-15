@@ -1,21 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import Image from 'next/image';
 import { MessageCircle, ShoppingCart, Tag, ShieldCheck, Truck } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { ContactFooter } from '@/components/ContactFooter';
 import { products } from '@/lib/data';
-import { use } from 'react';
+
+interface Product {
+  id: string;
+  title: string;
+  price: number;
+  images: string[];
+  image: string;
+  fabric: string;
+  work: string;
+  color: string;
+  description: string;
+}
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const product = products.find(p => p.id === resolvedParams.id);
-  const [activeImage, setActiveImage] = useState(product?.image);
+  const [activeImage, setActiveImage] = useState<string | null>(product?.image || null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   if (!product) {
-    return <div className="min-h-screen flex items-center justify-center text-xl">Product not found</div>;
+    return <div className="min-h-screen flex items-center justify-center text-xl pt-24">Product not found</div>;
   }
 
   const imagesList = product.images?.length ? product.images : [product.image];
@@ -38,7 +49,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                       onClick={() => setActiveImage(img)}
                       className={`relative aspect-[3/4] w-16 md:w-full border-2 rounded overflow-hidden flex-shrink-0 ${activeImage === img ? 'border-maroon-800' : 'border-transparent'}`}
                     >
-                      <Image src={img} alt={`View ${i}`} fill className="object-cover object-top" />
+                      <Image src={img} alt={`View ${i}`} fill className="object-cover object-top" sizes="100px" referrerPolicy="no-referrer" />
                     </button>
                   ))}
                </div>
@@ -46,7 +57,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                {/* Main Image */}
                <div className="relative aspect-[3/4] w-full flex-grow bg-stone-100 rounded-lg overflow-hidden">
                  {activeImage ? (
-                    <Image src={activeImage} alt={product.title} fill className="object-cover object-top" priority />
+                    <Image src={activeImage} alt={product.title} fill className="object-cover object-top" priority sizes="(max-width: 768px) 100vw, 50vw" referrerPolicy="no-referrer" />
                  ) : (
                     <div className="absolute inset-0 flex items-center justify-center">No Image</div>
                  )}

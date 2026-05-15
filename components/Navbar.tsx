@@ -44,11 +44,6 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-4 sm:gap-6">
-            <Link href="/book" className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-maroon-800 border border-maroon-800 hover:bg-maroon-50 transition-colors">
-              <Calendar className="w-4 h-4" />
-              <span>Book Appointment</span>
-            </Link>
-            
             <Link href="#" className="hidden sm:block text-slate-600 hover:text-maroon-800">
               <ShoppingCart className="w-5 h-5" />
             </Link>
@@ -69,7 +64,7 @@ export function Navbar() {
                   {showDropdown && (
                     <div className="absolute right-0 top-12 w-48 bg-white border border-stone-100 shadow-xl rounded-md py-2 z-50">
                       <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-stone-50">
-                        <UserIcon className="w-4 h-4" /> Profile & Bookings
+                        <UserIcon className="w-4 h-4" /> Profile & Orders
                       </Link>
                       <button onClick={signOut} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-rose-600 hover:bg-stone-50 text-left">
                         <LogOut className="w-4 h-4" /> Sign Out
@@ -110,15 +105,6 @@ export function Navbar() {
             <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>New Arrivals</Link>
             <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Bridal</Link>
           </div>
-          
-          <Link 
-            href="/book" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center justify-center gap-2 px-6 py-3 w-full rounded-md text-sm font-bold uppercase tracking-wider text-white bg-maroon-800 hover:bg-maroon-900 transition-colors"
-          >
-            <Calendar className="w-4 h-4" />
-            <span>Book Appointment</span>
-          </Link>
         </div>
       )}
     </nav>

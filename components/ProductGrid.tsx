@@ -24,6 +24,7 @@ export function ProductGrid({ products, title }: { products: Product[], title: s
                    fill
                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                    className="object-cover object-top"
+                   referrerPolicy="no-referrer"
                  />
                ) : (
                  <div className="absolute inset-0 flex items-center justify-center text-stone-400">No Image</div>
