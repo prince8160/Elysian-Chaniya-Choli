@@ -1,169 +1,126 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Search, MessageCircle, ShoppingCart } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Menu, X, Search, MessageCircle, ShoppingCart, Calendar, LogIn, User as UserIcon, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from './AuthProvider';
+import { signOut } from '@/lib/auth';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, loading, openAuthModal } = useAuth();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Products', href: '/#collections' },
-    { name: 'Contact', href: '/#contact' },
-  ];
-
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white shadow-md py-3'
-            : 'bg-white/95 backdrop-blur-md border-b border-stone-100 py-4'
-        }`}
-      >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center gap-4 lg:gap-8">
-            
-            {/* Mobile menu button & Logo */}
-            <div className="flex items-center gap-4 flex-shrink-0">
-              <button
-                type="button"
-                className="lg:hidden p-2 -ml-2 rounded-md text-slate-800"
-                onClick={() => setIsMobileMenuOpen(true)}
-              >
-                <Menu className="h-6 w-6" />
-              </button>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm py-3' : 'bg-white/80 backdrop-blur-md py-4'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          {/* Mobile Menu Toggle */}
+          <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu className="w-6 h-6" />
+          </button>
 
-              <Link href="/" className="flex flex-col items-start group">
-                <span className="font-serif text-2xl md:text-3xl font-bold tracking-wide text-maroon-900 group-hover:text-gold-500 transition-colors">
-                  ELYSIAN
-                </span>
-                <span className="text-[0.5rem] md:text-[0.6rem] tracking-[0.2em] uppercase text-slate-500 font-medium">
-                  Chaniya Choli
-                </span>
-              </Link>
-            </div>
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-serif font-bold text-slate-900 tracking-wide">
+            ELYSIAN
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-6 flex-shrink-0">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-semibold text-slate-700 hover:text-maroon-800 transition-colors uppercase tracking-wider"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* Center Search Bar */}
-            <div className="hidden md:flex flex-1 max-w-2xl mx-auto relative group">
-              <input 
-                type="text" 
-                placeholder="Search for Chaniya Choli, mirror work, colors..."
-                className="w-full bg-stone-100/80 border border-transparent text-slate-800 text-sm rounded-sm pl-4 pr-12 py-2.5 focus:outline-none focus:border-maroon-200 focus:bg-white transition-all group-hover:bg-white group-hover:border-stone-200 shadow-inner"
-              />
-              <div className="absolute right-0 top-0 bottom-0 px-4 bg-maroon-50 text-maroon-900 flex items-center justify-center rounded-r-sm cursor-pointer hover:bg-maroon-100 transition-colors">
-                <Search className="h-5 w-5" />
-              </div>
-            </div>
-
-            {/* Right Action */}
-            <div className="flex items-center justify-end flex-shrink-0 gap-4">
-              <Link href="#" className="hidden sm:flex text-slate-700 hover:text-maroon-800">
-                <ShoppingCart className="w-6 h-6" />
-              </Link>
-              <a 
-                href="#"
-                className="flex items-center gap-2 px-6 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#1ebd5b] transition-colors shadow-sm"
-              >
-                <MessageCircle className="w-5 h-5 hidden sm:block" />
-                <span>WhatsApp</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile Search Bar - Shows below header on small screens */}
-          <div className="mt-3 md:hidden relative flex">
+          {/* Desktop Search */}
+          <div className="hidden md:flex flex-1 max-w-xl mx-8 relative">
             <input 
               type="text" 
-              placeholder="Search products..."
-              className="w-full bg-stone-100 border border-transparent text-slate-800 text-sm rounded-l-sm pl-4 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-stone-200 transition-colors"
+              placeholder="Search for authentic styles..." 
+              className="w-full pl-10 pr-4 py-2 bg-stone-100 border-none rounded-full text-sm focus:ring-2 focus:ring-maroon-800 outline-none"
             />
-            <div className="bg-maroon-50 text-maroon-900 px-4 rounded-r-sm flex items-center justify-center">
-              <Search className="h-5 w-5" />
+            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <Link href="/book" className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-maroon-800 border border-maroon-800 hover:bg-maroon-50 transition-colors">
+              <Calendar className="w-4 h-4" />
+              <span>Book Appointment</span>
+            </Link>
+            
+            <Link href="#" className="hidden sm:block text-slate-600 hover:text-maroon-800">
+              <ShoppingCart className="w-5 h-5" />
+            </Link>
+
+            <div className="relative">
+              {!loading && user ? (
+                <div 
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-sm text-slate-500 font-serif overflow-hidden border border-stone-200">
+                    {user.photoURL ? (
+                      <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      (user.displayName || user.email || 'U').charAt(0).toUpperCase()
+                    )}
+                  </div>
+                  {showDropdown && (
+                    <div className="absolute right-0 top-12 w-48 bg-white border border-stone-100 shadow-xl rounded-md py-2 z-50">
+                      <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-stone-50">
+                        <UserIcon className="w-4 h-4" /> Profile & Bookings
+                      </Link>
+                      <button onClick={signOut} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-rose-600 hover:bg-stone-50 text-left">
+                        <LogOut className="w-4 h-4" /> Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : !loading && (
+                <button onClick={openAuthModal} className="flex items-center gap-2 text-slate-600 hover:text-maroon-800 transition-colors">
+                  <LogIn className="w-5 h-5" />
+                  <span className="hidden sm:inline text-sm font-medium">Sign In</span>
+                </button>
+              )}
             </div>
+
           </div>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm"
-              onClick={() => setIsMobileMenuOpen(false)}
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-white pt-20 px-6">
+          <button className="absolute top-6 right-6 p-2 text-slate-600" onClick={() => setIsMobileMenuOpen(false)}>
+             <X className="w-6 h-6" />
+          </button>
+          
+          <div className="relative mb-8">
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              className="w-full pl-10 pr-4 py-3 bg-stone-100 border-none rounded-md text-sm focus:ring-2 focus:ring-maroon-800 outline-none"
             />
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-4/5 max-w-sm bg-white z-[70] shadow-2xl flex flex-col"
-            >
-              <div className="p-5 flex justify-between items-center border-b border-stone-100 bg-stone-50">
-                <div>
-                  <span className="font-serif text-2xl font-bold text-maroon-900 block">ELYSIAN</span>
-                  <span className="text-[0.6rem] tracking-[0.2em] uppercase text-slate-500">Chaniya Choli</span>
-                </div>
-                <button
-                  type="button"
-                  className="p-2 bg-white rounded-full text-slate-500 hover:text-slate-800 shadow-sm"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <div className="py-4 px-2 flex flex-col overflow-y-auto">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-base font-semibold uppercase tracking-wider text-slate-700 hover:text-maroon-800 hover:bg-stone-50 px-4 py-3 rounded-lg mx-2 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="mt-auto p-6 bg-stone-50 border-t border-stone-200">
-                <a
-                  href="#"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#25D366] text-white rounded-lg uppercase tracking-widest text-sm font-bold hover:bg-[#1ebd5b] transition-colors shadow-sm"
-                >
-                  <MessageCircle className="w-5 h-5" /> WhatsApp Inquiry
-                </a>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+            <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          </div>
+
+          <div className="flex flex-col gap-6 text-lg font-serif mb-8">
+            <Link href="/" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>New Arrivals</Link>
+            <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Bridal</Link>
+          </div>
+          
+          <Link 
+            href="/book" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center justify-center gap-2 px-6 py-3 w-full rounded-md text-sm font-bold uppercase tracking-wider text-white bg-maroon-800 hover:bg-maroon-900 transition-colors"
+          >
+            <Calendar className="w-4 h-4" />
+            <span>Book Appointment</span>
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 }
