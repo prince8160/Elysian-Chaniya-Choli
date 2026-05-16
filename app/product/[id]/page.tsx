@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, use } from 'react';
+import { useState, use, useEffect } from 'react';
 import Image from 'next/image';
 import { MessageCircle, ShoppingCart, Tag, ShieldCheck, Truck } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { ContactFooter } from '@/components/ContactFooter';
-import { products } from '@/lib/data';
 
 interface Product {
   id: string;
@@ -21,9 +20,31 @@ interface Product {
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
-  const product = products.find(p => p.id === resolvedParams.id);
-  const [activeImage, setActiveImage] = useState<string | null>(product?.image || null);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then((data: Product[]) => {
+        const found = data.find(p => p.id === resolvedParams.id);
+        if (found) {
+          setProduct(found);
+          setActiveImage(found.image);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [resolvedParams.id]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center pt-24 pb-10"><div className="text-slate-500">Loading product...</div></div>;
+  }
 
   if (!product) {
     return <div className="min-h-screen flex items-center justify-center text-xl pt-24">Product not found</div>;

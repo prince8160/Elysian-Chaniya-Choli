@@ -44,6 +44,9 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-4 sm:gap-6">
+            <Link href="/#collection" className="hidden md:block text-sm font-medium text-slate-600 hover:text-maroon-800 uppercase tracking-wide">
+              Shop Now
+            </Link>
             <Link href="#" className="hidden sm:block text-slate-600 hover:text-maroon-800">
               <ShoppingCart className="w-5 h-5" />
             </Link>
@@ -102,8 +105,8 @@ export function Navbar() {
 
           <div className="flex flex-col gap-6 text-lg font-serif mb-8">
             <Link href="/" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-            <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>New Arrivals</Link>
-            <Link href="#" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Bridal</Link>
+            <Link href="/#collection" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>Shop</Link>
+            <Link href="/?page=1#collection" className="text-slate-800" onClick={() => setIsMobileMenuOpen(false)}>New Arrivals</Link>
           </div>
         </div>
       )}
